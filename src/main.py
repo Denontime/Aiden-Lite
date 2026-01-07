@@ -72,7 +72,7 @@ def main():
     main_logger.info("开始识别人脸...")
     result = face_recognition.recognize(photo_path)
     
-    if result:
+    if result and not result.is_error:
         names = face_recognition.extract_names(result)
         if names:
             main_logger.info(f"✓ 最终结果: 识别到人物 -> {', '.join(names)}")
