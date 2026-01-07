@@ -1,9 +1,17 @@
 import logging
 import os
 from pathlib import Path
+from dotenv import load_dotenv
 from core.camera import CameraModule
 from core.face_recognition import FaceRecognitionModule
 from utils.logger_config import setup_logger, cleanup_old_logs
+
+# 加载 .env.actual 文件到环境变量
+env_file = Path(__file__).parent.parent / '.env.actual'
+if env_file.exists():
+    load_dotenv(env_file, override=True)
+else:
+    raise FileNotFoundError(f".env.actual 文件不存在: {env_file}")
 
 # 初始化主日志
 main_logger = setup_logger('main', 'system')

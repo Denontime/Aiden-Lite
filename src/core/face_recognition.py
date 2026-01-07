@@ -42,9 +42,9 @@ class FaceRecognitionModule:
             识别结果字典或 None
         """
         try:
-            logger.info(f"\n{'='*60}")
+            logger.info(f"\n{'='*40}")
             logger.info(f"发起人脸识别请求")
-            logger.info(f"{'='*60}")
+            logger.info(f"{'='*40}")
             logger.info(f"请求参数 - 图像路径: {image_path}")
             logger.debug(f"API 端点: {self.host}:{self.port}")
             logger.debug(f"使用的 API Key: {self.api_key}")
@@ -53,7 +53,7 @@ class FaceRecognitionModule:
             result = self.recognition.recognize(image_path)
             
             logger.info(f"\n接收服务器响应")
-            logger.info(f"{'='*60}")
+            logger.info(f"{'='*40}")
             
             if result is None:
                 logger.error("识别结果为None")
@@ -156,9 +156,9 @@ class FaceRecognitionModule:
         """
         names = []
         
-        logger.info(f"\n{'='*60}")
+        logger.info(f"\n{'='*40}")
         logger.info(f"解析识别结果")
-        logger.info(f"{'='*60}")
+        logger.info(f"{'='*40}")
         
         if not recognition_result:
             logger.error("识别结果为None - 无法解析")
