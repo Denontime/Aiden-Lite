@@ -3,6 +3,7 @@ import logging.handlers
 from pathlib import Path
 from datetime import datetime
 import os
+import threading
 
 
 def setup_logger(module_name: str, device_name: str = "default") -> logging.Logger:
@@ -16,7 +17,19 @@ def setup_logger(module_name: str, device_name: str = "default") -> logging.Logg
     Returns:
         配置好的 Logger 对象
     """
-    logger = logging.getLogger(f"{module_name}_{device_name}")
+    # 精简模块名映射
+    module_short_names = {
+        "main": "_main_",
+        "face_recognition": "_fr_",
+        "camera": "_cam_",
+        "web_app": "_web_",
+        "log_filter": "_logf_",
+        "config": "_cfg_",
+        # 可根据需要添加更多映射
+    }
+    short_module_name = module_short_names.get(module_name, module_name)
+    
+    logger = logging.getLogger(f"{short_module_name}_{device_name}")
     logger.setLevel(logging.DEBUG)
     
     # 避免重复处理
@@ -42,9 +55,10 @@ def setup_logger(module_name: str, device_name: str = "default") -> logging.Logg
     # 日期格式轮转
     handler.namer = lambda name: name.replace(".log", f"_{datetime.now().strftime('%Y%m%d_%H')}.log")
     
+    # 新的日志格式：时间 - [模块] : [线程] - 等级 : 内容
     formatter = logging.Formatter(
-        fmt='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-        datefmt='%Y-%m-%d %H:%M:%S'
+        fmt='%(asctime)s - [%(name)s] : [%(threadName)s] - %(levelname)s : %(message)s',
+        datefmt='%y%m%d %H:%M:%S'
     )
     handler.setFormatter(formatter)
     logger.addHandler(handler)

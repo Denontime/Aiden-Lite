@@ -10,7 +10,7 @@ from utils.logger_config import setup_logger, cleanup_old_logs
 from utils.log_filter import setup_log_filtering
 from web.router import router
 
-main_logger = setup_logger('main', 'system')
+main_logger = setup_logger('main', 'sys')
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -33,7 +33,7 @@ async def lifespan(app: FastAPI):
     try:
         cleanup_old_logs('camera', 'camera_0')
         cleanup_old_logs('face_recognition', 'default')
-        cleanup_old_logs('main', 'system')
+        cleanup_old_logs('main', 'sys')
         
         # 设置日志过滤
         setup_log_filtering()
@@ -46,11 +46,11 @@ async def lifespan(app: FastAPI):
         
     yield
     
-    main_logger.info("="*40)
+    main_logger.info(f"{'-'*10} 系统关闭序列启动 {'-'*10}")
     main_logger.info("正在清理硬件资源...")
     camera.stop()
     main_logger.info("✓ 系统组件已安全关闭")
-    main_logger.info("="*40)
+    main_logger.info(f"{'-'*10} 系统关闭序列完成 {'-'*10}")
 
 def create_app() -> FastAPI:
     """创建并配置 FastAPI 应用实例"""

@@ -62,7 +62,7 @@ async def generate_frames(request: Request):
         pass
     finally:
         from utils.logger_config import setup_logger
-        logger = setup_logger('main', 'system')
+        logger = setup_logger('main', 'sys')
         logger.debug("视频流连接已断开")
 
 @router.get("/video_feed")
@@ -95,7 +95,7 @@ async def log_stream(request: Request):
             pass
         finally:
             from utils.logger_config import setup_logger
-            logger = setup_logger('main', 'system')
+            logger = setup_logger('main', 'sys')
             logger.info("日志流连接已断开")
             
     return StreamingResponse(event_generator(), media_type="text/event-stream")

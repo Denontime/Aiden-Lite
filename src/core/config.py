@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from utils.logger_config import setup_logger
 
 # 配置根日志
-config_logger = setup_logger('config', 'system')
+config_logger = setup_logger('config', 'sys')
 
 # 基础路径
 BASE_DIR = Path(__file__).parent.parent.parent

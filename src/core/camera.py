@@ -6,7 +6,7 @@ from typing import Optional, List, Generator
 from datetime import datetime
 from utils.logger_config import setup_logger
 
-logger = setup_logger('camera', 'camera_0')
+logger = setup_logger('camera', 'cam0')
 
 
 class CameraModule:
@@ -53,9 +53,9 @@ class CameraModule:
             return
             
         self.is_running = True
-        self.thread = threading.Thread(target=self._capture_loop, daemon=True)
+        self.thread = threading.Thread(target=self._capture_loop, daemon=True, name="CameraCaptureThread")
         self.thread.start()
-        logger.info("摄像头捕获线程已启动")
+        logger.info(f"摄像头捕获线程 '{self.thread.name}' (ID: {self.thread.ident}) 已启动")
 
     def _capture_loop(self):
         """后台捕获循环"""

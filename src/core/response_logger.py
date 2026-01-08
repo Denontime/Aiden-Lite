@@ -10,17 +10,14 @@ class ResponseLogger:
     
     def log_request(self, image_path: str, host: str, port: str, api_key: str):
         """记录请求信息"""
-        self.logger.info(f"\n{'='*40}")
-        self.logger.info(f"发起人脸识别请求")
-        self.logger.info(f"{'='*40}")
+        self.logger.info(f"\n{'='*10} 发起人脸识别请求 {'='*10}")
         self.logger.info(f"请求参数 - 图像路径: {image_path}")
         self.logger.debug(f"API 端点: {host}:{port}")
         self.logger.debug(f"使用的 API Key: {api_key}")
     
     def log_response(self, result: RecognitionResult):
         """记录响应信息"""
-        self.logger.info(f"\n接收服务器响应")
-        self.logger.info(f"{'='*40}")
+        self.logger.info(f"\n{'='*10} 接收服务器响应 {'='*10}")
         
         # 记录原始响应信息
         self.logger.debug(f"原始响应类型: {type(result.raw)}")
@@ -101,9 +98,7 @@ class ResponseLogger:
     
     def log_extraction_result(self, result: RecognitionResult):
         """记录结果提取信息"""
-        self.logger.info(f"\n{'='*40}")
-        self.logger.info(f"解析识别结果")
-        self.logger.info(f"{'='*40}")
+        self.logger.info(f"\n{'='*10} 解析识别结果 {'='*10}")
         
         if result.is_error:
             self.logger.error(f"识别结果包含错误 - Code: {result.error_code}, Message: {result.error_message}")

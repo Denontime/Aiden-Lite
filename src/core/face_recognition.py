@@ -8,7 +8,7 @@ from utils.logger_config import setup_logger
 from .recognition_result import RecognitionResult
 from .response_logger import ResponseLogger
 
-logger = setup_logger('face_recognition', 'default')
+logger = setup_logger('face_recognition', '_')
 response_logger = ResponseLogger(logger)
 
 
