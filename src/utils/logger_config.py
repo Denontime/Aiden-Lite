@@ -24,7 +24,8 @@ def setup_logger(module_name: str, device_name: str = "default") -> logging.Logg
         return logger
     
     # 日志目录
-    log_dir = Path("logs") / module_name / device_name
+    base_log_dir = os.getenv('LOG_DIR', 'logs')
+    log_dir = Path(base_log_dir) / module_name / device_name
     log_dir.mkdir(parents=True, exist_ok=True)
     
     log_file = log_dir / f"{module_name}_{device_name}.log"
@@ -56,16 +57,20 @@ def setup_logger(module_name: str, device_name: str = "default") -> logging.Logg
     return logger
 
 
-def cleanup_old_logs(module_name: str, device_name: str = "default", days: int = 7):
+def cleanup_old_logs(module_name: str, device_name: str = "default", days: int = None):
     """
     清理超期日志和压缩历史日志
     
     Args:
         module_name: 模块名称
         device_name: 设备名称
-        days: 保留天数
+        days: 保留天数 (如果为 None，则从环境变量 LOG_RETENTION_DAYS 读取)
     """
-    log_dir = Path("logs") / module_name / device_name
+    if days is None:
+        days = int(os.getenv('LOG_RETENTION_DAYS', '7'))
+        
+    base_log_dir = os.getenv('LOG_DIR', 'logs')
+    log_dir = Path(base_log_dir) / module_name / device_name
     
     if not log_dir.exists():
         return

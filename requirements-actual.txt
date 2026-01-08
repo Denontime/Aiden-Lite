@@ -6,3 +6,7 @@ compreface-sdk
 python-dotenv
 requests-toolbelt>=0.9.1
 urllib3>=1.26
+fastapi
+uvicorn
+jinja2
+python-multipart
